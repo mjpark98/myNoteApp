@@ -95,9 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="12dp"
                 app:layout_constraintStart_toEndOf="@+id/textViewPriority"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8">
+                app:layout_constraintTop_toBottomOf="@+id/editNotesText">
 
                 <RadioButton
                     android:id="@+id/radioButtonLow"
@@ -123,70 +122,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="9dp"
                 android:text="Priority:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName4"
-                android:layout_width="371dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName5"
-                android:layout_width="371dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName6"
-                android:layout_width="371dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName7"
-                android:layout_width="371dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName8"
-                android:layout_width="371dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:layout_constraintTop_toBottomOf="@+id/editNotesText" />
 
             <TextView
                 android:id="@+id/textViewSubject"
@@ -197,6 +136,21 @@
                 android:text="Subject:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editNotesText"
+                android:layout_width="372dp"
+                android:layout_height="287dp"
+                android:layout_marginStart="16dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:lines="10"
+                android:maxLines="15"
+                android:minLines="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNote"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/textViewNote"
@@ -209,7 +163,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewSubject" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/editName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -219,19 +173,6 @@
                 android:text="Name"
                 app:layout_constraintStart_toEndOf="@+id/textViewSubject"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName2"
-                android:layout_width="371dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
-                tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

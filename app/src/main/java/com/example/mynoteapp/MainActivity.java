@@ -4,10 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Notes currentNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initListButton();
         initSettingsButton();
+        initSaveButton();
+        initTextChangedEvents();
+        currentNotes = new Notes();
     }
     private void initListButton() {
         ImageButton ibList = findViewById(R.id.imageButtonList);
@@ -35,5 +45,76 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void initSaveButton(){
+        Button saveButton = findViewById(R.id.buttonSave);
+        saveButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                boolean wasSuccessful;
+                NoteDataSource ds = new NoteDataSource(MainActivity.this);
+                try{
+                    ds.open();
+                    if(currentNotes.getNoteID() == -1){
+                        wasSuccessful = ds.insertNote(currentNotes);
+                        int newId = ds.getLastNoteID();
+                        currentNotes.setNoteID(newId);
+                    }
+                    else{
+                        wasSuccessful = ds.updateNote(currentNotes);
+                    }
+                    ds.close();
+                }
+                catch(Exception e){
+                    wasSuccessful = false;
+                }
+                if(wasSuccessful){
+                    ToggleButton editToggle = findViewById(R.id.toggleButton);
+                    editToggle.toggle();
+                    setForEditing(false);
+                }
+            }
+        });
+    }
+    private void initTextChangedEvents(){
+        final EditText getNotesName = findViewById(R.id.editName);
+        getNotesName.addTextChangedListener(new TextWatcher(){
+            public void afterTextChanged(Editable s) {
+                currentNotes.setNotes(getNotesName.getText().toString());
+            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+        });
+        final EditText getNotesText = findViewById(R.id.editNotesText);
+        getNotesText.addTextChangedListener(new TextWatcher(){
+            public void afterTextChanged(Editable s) {
+                currentNotes.setSubject(getNotesText.getText().toString());
+            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+        });
+    }
+    private void setForEditing(boolean enabled){
+
+        EditText editSubject = findViewById(R.id.editName);
+        EditText editNote = findViewById(R.id.editNotesText);
+
+        editSubject.setEnabled(enabled);
+        editNote.setEnabled(enabled);
+
+        if(enabled){
+            editSubject.requestFocus();
+        }
+        else{
+            //nothing?
+        }
     }
 }
