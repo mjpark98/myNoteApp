@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         initSaveButton();
         initTextChangedEvents();
         currentNotes = new Notes();
+        initPriorityButtons();
     }
     private void initListButton() {
         ImageButton ibList = findViewById(R.id.imageButtonList);
@@ -51,17 +54,25 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
                 boolean wasSuccessful;
                 NoteDataSource ds = new NoteDataSource(MainActivity.this);
+
                 try{
                     ds.open();
                     if(currentNotes.getNoteID() == -1){
                         wasSuccessful = ds.insertNote(currentNotes);
                         int newId = ds.getLastNoteID();
                         currentNotes.setNoteID(newId);
+                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                     else{
                         wasSuccessful = ds.updateNote(currentNotes);
+                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                     ds.close();
                 }
@@ -77,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void initTextChangedEvents(){
-        final EditText getNotesName = findViewById(R.id.editName);
+        final EditText getNotesName = findViewById(R.id.editSubject);
         getNotesName.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
-                currentNotes.setNotes(getNotesName.getText().toString());
+                currentNotes.setSubject(getNotesName.getText().toString());
             }
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -92,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText getNotesText = findViewById(R.id.editNotesText);
         getNotesText.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
-                currentNotes.setSubject(getNotesText.getText().toString());
+                currentNotes.setNotes(getNotesText.getText().toString());
             }
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -104,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setForEditing(boolean enabled){
 
-        EditText editSubject = findViewById(R.id.editName);
+        EditText editSubject = findViewById(R.id.editSubject);
         EditText editNote = findViewById(R.id.editNotesText);
 
         editSubject.setEnabled(enabled);
@@ -116,5 +127,28 @@ public class MainActivity extends AppCompatActivity {
         else{
             //nothing?
         }
+    }
+
+    private void initPriorityButtons(){
+        RadioButton lowPriority = (RadioButton) findViewById(R.id.radioButtonLow);
+        RadioButton midPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
+        RadioButton highPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
+        RadioGroup rgPriority = findViewById(R.id.radioGroupPriority);
+
+        rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (lowPriority.isChecked()) {
+                    currentNotes.setPriority("Low");
+                }
+                else if(midPriority.isChecked()){
+                    currentNotes.setPriority("Medium");
+                }
+                else{
+                    currentNotes.setPriority("High");
+                }
+            }
+        });
+
     }
 }

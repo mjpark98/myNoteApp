@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class NoteDataSource {
 
     private SQLiteDatabase database;
@@ -28,6 +30,7 @@ public class NoteDataSource {
 
             initialValues.put("subjectname", n.getSubject());
             initialValues.put("notes", n.getNotes());
+            initialValues.put("priority", n.getPriority());
 
             didSucceed = database.insert("notes", null, initialValues) > 0;
         }
@@ -44,6 +47,7 @@ public class NoteDataSource {
 
             updateValues.put("subjectname", n.getSubject());
             updateValues.put("notes", n.getNotes());
+            updateValues.put("priority", n.getPriority());
 
             didSucceed = database.update("notes", updateValues, "_id=" + rowId, null) > 0;
         }
@@ -67,5 +71,40 @@ public class NoteDataSource {
             lastId = -1;
         }
         return lastId;
+    }
+
+    public ArrayList<Notes> getNotes() {
+        ArrayList<Notes> notes = new ArrayList<Notes>();
+        try{
+            String query = "SELECT * FROM notes";
+            Cursor cursor = database.rawQuery(query,null);
+
+            Notes newNotes;
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                newNotes = new Notes();
+                newNotes.setNoteID(cursor.getInt(0));
+                newNotes.setSubject(cursor.getString(1));
+                newNotes.setNotes(cursor.getString(2));
+                newNotes.setPriority(cursor.getString(3));
+                notes.add(newNotes);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        catch(Exception e) {
+            notes = new ArrayList<>();
+        }
+        return notes;
+    }
+
+    public boolean deleteNote(int noteID){
+        boolean didDelete = false;
+        try{
+            didDelete = database.delete("notes", "_id= " + noteID , null) > 0;
+        } catch (Exception e){
+            //does nothing
+        }
+        return didDelete;
     }
 }
