@@ -1,7 +1,6 @@
 package com.example.mynoteapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class NotesAdaptor extends RecyclerView.Adapter {
-    private ArrayList<Notes> notesData;
-    private View.OnClickListener mOnitemClickListener;
+public class NotesAdapter extends RecyclerView.Adapter {
+  final private ArrayList<Notes> notesData;
+    private View.OnClickListener mOnItemClickListener;
     private Context parentContext;
     private boolean isDeleting;
 
 
-    public NotesAdaptor(ArrayList<Notes> arrayList, Context context){
+    public NotesAdapter(ArrayList<Notes> arrayList, Context context){
         notesData = arrayList;
         parentContext = context;
     }
+
+    public NotesAdapter(ArrayList<Notes> arrayList){notesData = arrayList;}
 
 public class NotesViewHolder extends RecyclerView.ViewHolder {
     public TextView textViewSubject;
@@ -35,9 +36,9 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         textViewSubject = itemView.findViewById(R.id.textSubject);
         textViewPriority = itemView.findViewById(R.id.textPriority);
-        deleteButton = itemView.findViewById(R.id.buttonDeleteContact);
+        deleteButton = itemView.findViewById(R.id.buttonDeleteNote);
         itemView.setTag(this);
-        itemView.setOnClickListener(mOnitemClickListener);
+        itemView.setOnClickListener(mOnItemClickListener);
     }
 
     public TextView getTextViewSubject() {
@@ -52,8 +53,8 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
     }
 }
 
-    public void setOnitemClickListener(View.OnClickListener itemClickListener){
-        mOnitemClickListener = itemClickListener;
+    public void setOnItemClickListener(View.OnClickListener itemClickListener){
+        mOnItemClickListener = itemClickListener;
     }
 
     @NonNull

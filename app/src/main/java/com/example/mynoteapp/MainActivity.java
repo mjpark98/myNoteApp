@@ -64,15 +64,11 @@ public class MainActivity extends AppCompatActivity {
                         wasSuccessful = ds.insertNote(currentNotes);
                         int newId = ds.getLastNoteID();
                         currentNotes.setNoteID(newId);
-                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+
                     }
                     else{
                         wasSuccessful = ds.updateNote(currentNotes);
-                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+
                     }
                     ds.close();
                 }
@@ -84,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     editToggle.toggle();
                     setForEditing(false);
                 }
+                Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
