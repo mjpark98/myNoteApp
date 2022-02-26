@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class NoteDataSource {
 
     private SQLiteDatabase database;
@@ -27,7 +29,8 @@ public class NoteDataSource {
             ContentValues initialValues = new ContentValues();
 
             initialValues.put("subjectname", n.getSubject());
-            initialValues.put("notes", n.getNotes());
+            initialValues.put("note", n.getNotes());
+            initialValues.put("priority", n.getPriority());
 
             didSucceed = database.insert("notes", null, initialValues) > 0;
         }
@@ -39,11 +42,12 @@ public class NoteDataSource {
     public boolean updateNote(Notes n){
         boolean didSucceed = false;
         try{
-            Long rowId = (long) n.getNoteID();
+            long rowId = (long) n.getNoteID();
             ContentValues updateValues =  new ContentValues();
 
             updateValues.put("subjectname", n.getSubject());
-            updateValues.put("notes", n.getNotes());
+            updateValues.put("note", n.getNotes());
+            updateValues.put("priority", n.getPriority());
 
             didSucceed = database.update("notes", updateValues, "_id=" + rowId, null) > 0;
         }
@@ -67,5 +71,42 @@ public class NoteDataSource {
             lastId = -1;
         }
         return lastId;
+    }
+
+    public ArrayList<Notes> getMyNotes(String sortField, String sortOrder) {
+        ArrayList<Notes> notes = new ArrayList<>();
+
+
+        try{
+            String query = " SELECT * FROM notes ORDER BY " + sortField + " " + sortOrder;
+            Cursor cursor = database.rawQuery(query,null);
+
+            Notes newNote;
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                newNote = new Notes();
+                newNote.setNoteID(cursor.getInt(0));
+                newNote.setSubject(cursor.getString(1));
+                newNote.setNotes(cursor.getString(2));
+                newNote.setPriority(cursor.getString(3));
+                notes.add(newNote);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        catch(Exception e) {
+            notes = new ArrayList<>();
+        }
+        return notes;
+    }
+
+    public boolean deleteNote(int noteID){
+        boolean didDelete = false;
+        try{
+            didDelete = database.delete("notes", "_id= " + noteID , null) > 0;
+        } catch (Exception e){
+            //does nothing
+        }
+        return didDelete;
     }
 }

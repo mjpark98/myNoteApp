@@ -4,6 +4,7 @@ public class Notes {
     private int noteID;
     private String subject;
     private String notes;
+    private String priority;
 
     public Notes() {
 
@@ -31,6 +32,6 @@ public class Notes {
         this.subject = subject;
     }
 
-
-
+    public void setPriority(String priority) { this.priority = priority; }
+    public String getPriority(){ return priority;}
 }
