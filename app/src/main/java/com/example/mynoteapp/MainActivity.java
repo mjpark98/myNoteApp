@@ -59,9 +59,15 @@ public class MainActivity extends AppCompatActivity {
                         wasSuccessful = ds.insertNote(currentNotes);
                         int newId = ds.getLastNoteID();
                         currentNotes.setNoteID(newId);
+                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                     else{
                         wasSuccessful = ds.updateNote(currentNotes);
+                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                     ds.close();
                 }
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void initTextChangedEvents(){
-        final EditText getNotesName = findViewById(R.id.editName);
+        final EditText getNotesName = findViewById(R.id.editSubject);
         getNotesName.addTextChangedListener(new TextWatcher(){
             public void afterTextChanged(Editable s) {
                 currentNotes.setNotes(getNotesName.getText().toString());
@@ -104,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setForEditing(boolean enabled){
 
-        EditText editSubject = findViewById(R.id.editName);
+        EditText editSubject = findViewById(R.id.editSubject);
         EditText editNote = findViewById(R.id.editNotesText);
 
         editSubject.setEnabled(enabled);
