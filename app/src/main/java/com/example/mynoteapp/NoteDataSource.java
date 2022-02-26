@@ -29,7 +29,7 @@ public class NoteDataSource {
             ContentValues initialValues = new ContentValues();
 
             initialValues.put("subjectname", n.getSubject());
-            initialValues.put("notes", n.getNotes());
+            initialValues.put("note", n.getNotes());
             initialValues.put("priority", n.getPriority());
 
             didSucceed = database.insert("notes", null, initialValues) > 0;
@@ -42,11 +42,11 @@ public class NoteDataSource {
     public boolean updateNote(Notes n){
         boolean didSucceed = false;
         try{
-            Long rowId = (long) n.getNoteID();
+            long rowId = (long) n.getNoteID();
             ContentValues updateValues =  new ContentValues();
 
             updateValues.put("subjectname", n.getSubject());
-            updateValues.put("notes", n.getNotes());
+            updateValues.put("note", n.getNotes());
             updateValues.put("priority", n.getPriority());
 
             didSucceed = database.update("notes", updateValues, "_id=" + rowId, null) > 0;
@@ -73,21 +73,23 @@ public class NoteDataSource {
         return lastId;
     }
 
-    public ArrayList<Notes> getNotes() {
-        ArrayList<Notes> notes = new ArrayList<Notes>();
+    public ArrayList<Notes> getMyNotes(String sortField, String sortOrder) {
+        ArrayList<Notes> notes = new ArrayList<>();
+
+
         try{
-            String query = "SELECT * FROM notes";
+            String query = " SELECT * FROM notes ORDER BY " + sortField + " " + sortOrder;
             Cursor cursor = database.rawQuery(query,null);
 
-            Notes newNotes;
+            Notes newNote;
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
-                newNotes = new Notes();
-                newNotes.setNoteID(cursor.getInt(0));
-                newNotes.setSubject(cursor.getString(1));
-                newNotes.setNotes(cursor.getString(2));
-                newNotes.setPriority(cursor.getString(3));
-                notes.add(newNotes);
+                newNote = new Notes();
+                newNote.setNoteID(cursor.getInt(0));
+                newNote.setSubject(cursor.getString(1));
+                newNote.setNotes(cursor.getString(2));
+                newNote.setPriority(cursor.getString(3));
+                notes.add(newNote);
                 cursor.moveToNext();
             }
             cursor.close();

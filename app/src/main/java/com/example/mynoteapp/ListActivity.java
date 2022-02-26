@@ -1,15 +1,33 @@
 package com.example.mynoteapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
+    NotesAdapter notesAdapter;
+    ArrayList<Notes> notes;
+
+    private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            int position = viewHolder.getAdapterPosition();
+            int noteID = notes.get(position).getNoteID();
+            Intent intent = new Intent(ListActivity.this, MainActivity.class);
+            intent.putExtra("noteID", noteID);
+            startActivity(intent);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +35,48 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         initSettingsButton();
         initNotesButton();
+
+
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        String sortBy = getSharedPreferences("MyNotesPreferences",
+                Context.MODE_PRIVATE).getString("sortfield", "subjectname");
+        String sortOrder = getSharedPreferences("MyNotesPreferences",
+                Context.MODE_PRIVATE).getString("sortorder", "ASC");
+
+        NoteDataSource ds = new NoteDataSource(this);
+
+        try {
+            ds.open();
+           notes = ds.getMyNotes(sortBy,sortOrder);
+            ds.close();
+
+
+            if (notes.size() > 0) {
+                RecyclerView notesList = findViewById(R.id.rvNotes);
+                notesAdapter = new NotesAdapter(notes, this);
+                notesAdapter.setOnItemClickListener(onItemClickListener);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+                notesList.setLayoutManager(layoutManager);
+                notesList.setAdapter(notesAdapter);
+            } else {
+                Intent intent = new Intent(ListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
+        catch(Exception e){
+            Toast.makeText(this, "Error retrieving notes", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
     private void initSettingsButton() {
         ImageButton ibList = findViewById(R.id.imageButtonSettings);
         ibList.setOnClickListener(new View.OnClickListener() {
@@ -38,4 +97,6 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
