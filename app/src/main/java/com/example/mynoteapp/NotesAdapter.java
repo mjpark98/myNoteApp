@@ -1,6 +1,7 @@
 package com.example.mynoteapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
         deleteButton = itemView.findViewById(R.id.buttonDeleteNote);
         itemView.setTag(this);
         itemView.setOnClickListener(mOnItemClickListener);
+
+
     }
 
     public TextView getTextViewSubject() {
@@ -112,4 +115,6 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
     public int getItemCount() {
         return notesData.size();
     }
+
+
 }

@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,7 +38,8 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         initSettingsButton();
         initNotesButton();
-
+        initAddNoteButton();
+        initDeleteSwitch();
 
 
     }
@@ -97,6 +101,25 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
-
-
+    private void initAddNoteButton(){
+        Button newNote = findViewById(R.id.buttonAddNote);
+        newNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    private void initDeleteSwitch(){
+        Switch s = findViewById(R.id.switchDelete);
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Boolean status = compoundButton.isChecked();
+                notesAdapter.setDelete(status);
+                notesAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 }

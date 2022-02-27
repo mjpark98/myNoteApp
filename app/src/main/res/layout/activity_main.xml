@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="451dp"
+        android:layout_height="124dp"
         android:background="@color/navbar_background"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,17 +21,21 @@
             android:layout_width="259dp"
             android:layout_height="131dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/system_transparent"
             android:contentDescription="Button to display notes"
-            app:srcCompat="@drawable/notesicon"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/notesiconn"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/imageButtonList"
-            android:layout_width="wrap_content"
-            android:layout_height="134dp"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="@color/system_transparent"
             android:contentDescription="Button to display list"
-            app:srcCompat="@drawable/listicon"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/listiconn"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
@@ -39,8 +43,10 @@
             android:layout_width="255dp"
             android:layout_height="134dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/system_transparent"
             android:contentDescription="Button to display settings"
-            app:srcCompat="@drawable/settingsicon2"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/settingsiconn"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>

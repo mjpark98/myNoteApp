@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="122dp"
         android:background="@color/navbar_background"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,17 +21,21 @@
             android:layout_width="259dp"
             android:layout_height="131dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/system_transparent"
             android:contentDescription="Button to display notes"
-            app:srcCompat="@drawable/notesicon"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/notesiconn"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/imageButtonList"
-            android:layout_width="wrap_content"
-            android:layout_height="134dp"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="@color/system_transparent"
             android:contentDescription="Button to display list"
-            app:srcCompat="@drawable/listicon"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/listiconn"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
@@ -39,39 +43,47 @@
             android:layout_width="255dp"
             android:layout_height="134dp"
             android:layout_weight="1"
+            android:backgroundTint="@color/system_transparent"
             android:contentDescription="Button to display settings"
-            app:srcCompat="@drawable/settingsicon2"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/settingsiconn"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="409dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="horizontal"
+        android:background="@color/toolbar_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Switch
+            android:id="@+id/switchDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:minHeight="48dp"
+            android:text="Delete:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
-            android:id="@+id/buttonDelete"
+            android:id="@+id/buttonAddNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Delete" />
+            android:layout_marginEnd="16dp"
+            android:text="New"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
 
-        <ToggleButton
-            android:id="@+id/toggleButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ToggleButton" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNotes"
@@ -82,6 +94,6 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
