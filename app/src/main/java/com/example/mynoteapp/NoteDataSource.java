@@ -31,6 +31,7 @@ public class NoteDataSource {
             initialValues.put("subjectname", n.getSubject());
             initialValues.put("note", n.getNotes());
             initialValues.put("priority", n.getPriority());
+            initialValues.put("date", String.valueOf(n.getDate()));
 
             didSucceed = database.insert("notes", null, initialValues) > 0;
         }
@@ -48,6 +49,7 @@ public class NoteDataSource {
             updateValues.put("subjectname", n.getSubject());
             updateValues.put("note", n.getNotes());
             updateValues.put("priority", n.getPriority());
+            updateValues.put("date", String.valueOf(n.getDate()));
 
             didSucceed = database.update("notes", updateValues, "_id=" + rowId, null) > 0;
         }
