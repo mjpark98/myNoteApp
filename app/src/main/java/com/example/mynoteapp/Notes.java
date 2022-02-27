@@ -1,14 +1,18 @@
 package com.example.mynoteapp;
 
+import java.util.Calendar;
+
 public class Notes {
     private int noteID;
     private String subject;
     private String notes;
     private String priority;
+    private Calendar date;
 
     public Notes() {
 
         noteID = -1;
+        date = Calendar.getInstance();
     }
 
     public int getNoteID() {
@@ -34,4 +38,12 @@ public class Notes {
 
     public void setPriority(String priority) { this.priority = priority; }
     public String getPriority(){ return priority;}
+
+    public Calendar getDate() {
+        return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
+    }
 }

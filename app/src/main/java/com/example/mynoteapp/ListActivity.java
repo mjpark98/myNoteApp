@@ -46,7 +46,7 @@ public class ListActivity extends AppCompatActivity {
 
 
         String sortBy = getSharedPreferences("MyNotesPreferences",
-                Context.MODE_PRIVATE).getString("sortfield", "subjectname");
+                Context.MODE_PRIVATE).getString("sortitem", "subjectname");
         String sortOrder = getSharedPreferences("MyNotesPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
