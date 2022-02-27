@@ -101,6 +101,22 @@ public class NoteDataSource {
         }
         return notes;
     }
+    public Notes getSpecificNote(int noteID){
+        Notes note = new Notes();
+
+        String query = "SELECT * FROM notes WHERE _id = " + noteID;
+        Cursor cursor = database.rawQuery(query, null);
+
+
+        if (cursor.moveToFirst()){
+            note.setNoteID(cursor.getInt(0));
+            note.setSubject(cursor.getString(1));
+            note.setNotes(cursor.getString(2));
+            note.setPriority(cursor.getString(3));
+            cursor.close();
+        }
+        return note;
+    }
 
     public boolean deleteNote(int noteID){
         boolean didDelete = false;

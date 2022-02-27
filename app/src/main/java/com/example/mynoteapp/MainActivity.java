@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,11 +23,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            initNotes(extras.getInt("noteID"));
+        }
+        else {
+            currentNotes = new Notes();
+        }
         initListButton();
         initSettingsButton();
         initSaveButton();
         initTextChangedEvents();
-        currentNotes = new Notes();
         initPriorityButtons();
     }
     private void initListButton() {
@@ -149,5 +157,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initNotes(int id ){
+        NoteDataSource ds = new NoteDataSource(MainActivity.this);
+        try {
+            ds.open();
+            currentNotes = ds.getSpecificNote(id);
+            ds.close();
+
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Load Note Failed!", Toast.LENGTH_SHORT).show();
+        }
+        EditText editSubject = findViewById(R.id.editSubject);
+        EditText editNote = findViewById(R.id.editNotesText);
+        RadioGroup priorityButtons = findViewById(R.id.radioGroupPriority);
+
+        editSubject.setText(currentNotes.getSubject());
+        editNote.setText(currentNotes.getNotes());
+
+
+        RadioButton lowPriority = (RadioButton) findViewById(R.id.radioButtonLow);
+        RadioButton midPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
+        RadioButton highPriority = (RadioButton) findViewById(R.id.radioButtonHigh);
+
+
+        if (currentNotes.getPriority().equals("Low")) {
+            lowPriority.setChecked(true);
+        }
+        else if (currentNotes.getPriority().equals("Medium")){
+            midPriority.setChecked(true);
+        }
+        else {
+            highPriority.setChecked(true);
+        }
     }
 }
