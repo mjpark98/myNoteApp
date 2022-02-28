@@ -48,17 +48,16 @@ public class ListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        String sortItem = getSharedPreferences("MyNotesApp", Context.MODE_PRIVATE).getString("sortitem", "date");
 
-        String sortBy = getSharedPreferences("MyNotesPreferences",
-                Context.MODE_PRIVATE).getString("sortitem", "subjectname");
-        String sortOrder = getSharedPreferences("MyNotesPreferences",
-                Context.MODE_PRIVATE).getString("sortorder", "ASC");
+        String sortOrder = getSharedPreferences("MyNotesApp", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+
 
         NoteDataSource ds = new NoteDataSource(this);
 
         try {
             ds.open();
-           notes = ds.getMyNotes(sortBy,sortOrder);
+           notes = ds.getMyNotes(sortItem,sortOrder);
             ds.close();
 
 
