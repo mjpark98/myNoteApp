@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class NoteDataSource {
 
@@ -75,12 +78,13 @@ public class NoteDataSource {
         return lastId;
     }
 
-    public ArrayList<Notes> getMyNotes(String sortField, String sortOrder) {
+    public ArrayList<Notes> getMyNotes(String sortItem, String sortOrder) {
         ArrayList<Notes> notes = new ArrayList<>();
+        DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 
 
         try{
-            String query = " SELECT * FROM notes ORDER BY " + sortField + " " + sortOrder;
+            String query = " SELECT * FROM notes ORDER BY " + sortItem + " " + sortOrder;
             Cursor cursor = database.rawQuery(query,null);
 
             Notes newNote;

@@ -46,9 +46,12 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     private void initSettings(){
-        String sortItem = getSharedPreferences("MyNotesApp", Context.MODE_PRIVATE).getString("sortitem", "date");
 
-        String sortOrder = getSharedPreferences("MyNotesApp", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+        String sortItem = getSharedPreferences("MyNotesApp",
+                Context.MODE_PRIVATE).getString("sortitem", "date");
+
+        String sortOrder = getSharedPreferences("MyNotesApp",
+                Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
         RadioButton rbDate = findViewById(R.id.radioButtonDate);
         RadioButton rbPriority = findViewById(R.id.radioButtonPriority);

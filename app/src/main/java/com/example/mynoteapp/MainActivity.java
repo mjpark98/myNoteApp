@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
     private void initTextChangedEvents(){
         final EditText getNotesName = findViewById(R.id.editSubject);
         getNotesName.addTextChangedListener(new TextWatcher(){
@@ -120,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
     private void setForEditing(boolean enabled){
 
         EditText editSubject = findViewById(R.id.editSubject);
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             //nothing?
         }
     }
+
 
     private void initPriorityButtons(){
         RadioButton lowPriority = (RadioButton) findViewById(R.id.radioButtonLow);
@@ -159,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void initNotes(int id ){
         NoteDataSource ds = new NoteDataSource(MainActivity.this);
         try {
@@ -172,15 +178,15 @@ public class MainActivity extends AppCompatActivity {
         }
         EditText editSubject = findViewById(R.id.editSubject);
         EditText editNote = findViewById(R.id.editNotesText);
-        RadioGroup priorityButtons = findViewById(R.id.radioGroupPriority);
+      //  RadioGroup priorityButtons = findViewById(R.id.radioGroupPriority);
 
         editSubject.setText(currentNotes.getSubject());
         editNote.setText(currentNotes.getNotes());
 
 
-        RadioButton lowPriority = (RadioButton) findViewById(R.id.radioButtonLow);
-        RadioButton midPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
-        RadioButton highPriority = (RadioButton) findViewById(R.id.radioButtonHigh);
+            RadioButton lowPriority =  findViewById(R.id.radioButtonLow);
+            RadioButton midPriority =  findViewById(R.id.radioButtonMedium);
+            RadioButton highPriority = findViewById(R.id.radioButtonHigh);
 
 
         if (currentNotes.getPriority().equals("Low")) {
