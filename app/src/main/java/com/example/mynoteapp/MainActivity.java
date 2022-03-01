@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     private void initPriorityButtons(){
         RadioButton lowPriority = (RadioButton) findViewById(R.id.radioButtonLow);
         RadioButton midPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
-        RadioButton highPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
+        RadioButton highPriority = (RadioButton) findViewById(R.id.radioButtonHigh);
         RadioGroup rgPriority = findViewById(R.id.radioGroupPriority);
 
         rgPriority.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
