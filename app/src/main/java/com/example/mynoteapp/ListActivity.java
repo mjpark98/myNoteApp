@@ -53,6 +53,8 @@ public class ListActivity extends AppCompatActivity {
         String sortOrder = getSharedPreferences("MyNotesApp", Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
 
+
+
         NoteDataSource ds = new NoteDataSource(this);
 
         try {

@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.util.Collections;
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -50,6 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
         String sortItem = getSharedPreferences("MyNotesApp",
                 Context.MODE_PRIVATE).getString("sortitem", "date");
 
+//        String sortPriority = getSharedPreferences("MyNotesApp",
+//                Context.MODE_PRIVATE).getString("sortitem", "priority");
+
         String sortOrder = getSharedPreferences("MyNotesApp",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
@@ -73,9 +78,8 @@ public class SettingsActivity extends AppCompatActivity {
         } else{
             rbDescending.setChecked(true);
         }
-
-
     }
+
 
 
 
