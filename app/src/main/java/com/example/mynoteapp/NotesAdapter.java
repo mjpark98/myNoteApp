@@ -75,6 +75,9 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
     nvh.getTextViewSubject().setText(notesData.get(position).getSubject());
     nvh.getTextViewPriority().setText(notesData.get(position).getPriority());
 
+
+
+
         if(isDeleting){
             nvh.getDeleteButton().setVisibility(View.VISIBLE);
             nvh.getDeleteButton().setOnClickListener(new View.OnClickListener() {

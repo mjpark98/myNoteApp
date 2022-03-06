@@ -2,6 +2,7 @@ package com.example.mynoteapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,9 +16,21 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity {
 
     private Notes currentNotes;
+    private ArrayList<Notes> priorityNotes = new ArrayList<>();
+
+    
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*
+    This is where its sorting priority.  Ned to figure out how to display it correctly****
+     */
     private void initPriorityButtons(){
         RadioButton lowPriority = (RadioButton) findViewById(R.id.radioButtonLow);
         RadioButton midPriority = (RadioButton) findViewById(R.id.radioButtonMedium);
@@ -151,13 +167,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (lowPriority.isChecked()) {
-                    currentNotes.setPriority("Low");
+                    currentNotes.setPriority("C_Low");
                 }
                 else if(midPriority.isChecked()){
-                    currentNotes.setPriority("Medium");
+                    currentNotes.setPriority("B_Medium");
                 }
                 else{
-                    currentNotes.setPriority("High");
+                    currentNotes.setPriority("A_High");
                 }
             }
         });
@@ -199,4 +215,5 @@ public class MainActivity extends AppCompatActivity {
             highPriority.setChecked(true);
         }
     }
+
 }

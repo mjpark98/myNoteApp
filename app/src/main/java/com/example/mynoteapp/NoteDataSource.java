@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public class NoteDataSource {
 
@@ -80,7 +81,8 @@ public class NoteDataSource {
 
     public ArrayList<Notes> getMyNotes(String sortItem, String sortOrder) {
         ArrayList<Notes> notes = new ArrayList<>();
-        DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+
+
 
 
         try{
@@ -94,7 +96,17 @@ public class NoteDataSource {
                 newNote.setNoteID(cursor.getInt(0));
                 newNote.setSubject(cursor.getString(1));
                 newNote.setNotes(cursor.getString(2));
-                newNote.setPriority(cursor.getString(3));
+
+                if (cursor.getString(3).equals("C_Low")) {
+                    newNote.setPriority("Low");
+                } else if (cursor.getString(3).equals("B_Medium")) {
+                    newNote.setPriority("Medium");
+                } else {
+                    newNote.setPriority("High");
+                }
+                //newNote.setPriority(cursor.getString(3));
+
+
                 notes.add(newNote);
                 cursor.moveToNext();
             }
