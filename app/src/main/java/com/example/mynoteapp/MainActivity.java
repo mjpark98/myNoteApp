@@ -44,11 +44,15 @@ public class MainActivity extends AppCompatActivity {
         else {
             currentNotes = new Notes();
         }
+
+        setForEditing(false);
         initListButton();
         initSettingsButton();
         initSaveButton();
         initTextChangedEvents();
         initPriorityButtons();
+        initToggleButton();
+
     }
     private void initListButton() {
         ImageButton ibList = findViewById(R.id.imageButtonList);
@@ -136,14 +140,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void initToggleButton(){
+        final ToggleButton editToggle = (ToggleButton) findViewById(R.id.toggleButton);
+        editToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setForEditing(editToggle.isChecked());
+            }
+        });
+    }
+
 
     private void setForEditing(boolean enabled){
 
         EditText editSubject = findViewById(R.id.editSubject);
         EditText editNote = findViewById(R.id.editNotesText);
+        RadioButton lowPriority = findViewById(R.id.radioButtonLow);
+        RadioButton midPriority = findViewById(R.id.radioButtonMedium);
+        RadioButton highPriority = findViewById(R.id.radioButtonHigh);
+
 
         editSubject.setEnabled(enabled);
         editNote.setEnabled(enabled);
+        midPriority.setEnabled(enabled);
+        lowPriority.setEnabled(enabled);
+        highPriority.setEnabled(enabled);
 
         if(enabled){
             editSubject.requestFocus();
