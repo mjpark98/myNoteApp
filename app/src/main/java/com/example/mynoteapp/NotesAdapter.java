@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,13 +72,20 @@ public class NotesViewHolder extends RecyclerView.ViewHolder {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
     NotesViewHolder nvh = (NotesViewHolder) holder;
-
     nvh.getTextViewSubject().setText(notesData.get(position).getSubject());
     nvh.getTextViewPriority().setText(notesData.get(position).getPriority());
 
-
-
-
+    String priority = notesData.get(position).getPriority();
+    if (priority == "high"){
+//        ((NotesViewHolder) holder).itemView.setBackgroundResource(R.color.system_red);
+        ((NotesViewHolder) holder).textViewPriority.setTextColor(Color.parseColor("#ff0000"));
+    }
+    else if(priority == "Medium"){
+        ((NotesViewHolder) holder).textViewPriority.setTextColor(Color.parseColor("#ffff00"));
+    }
+    else {
+            ((NotesViewHolder) holder).textViewPriority.setTextColor(Color.parseColor("#0df00d"));
+        }
         if(isDeleting){
             nvh.getDeleteButton().setVisibility(View.VISIBLE);
             nvh.getDeleteButton().setOnClickListener(new View.OnClickListener() {

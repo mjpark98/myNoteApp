@@ -179,7 +179,8 @@
                 android:minHeight="48dp"
                 android:text=""
                 app:layout_constraintStart_toEndOf="@+id/textViewSubject"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

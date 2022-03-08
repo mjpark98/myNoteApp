@@ -57,4 +57,5 @@ public class Notes {
     public void setDate(Calendar date) {
         this.date = date;
     }
+
 }

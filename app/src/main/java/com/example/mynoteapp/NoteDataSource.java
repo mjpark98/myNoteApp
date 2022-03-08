@@ -5,6 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,10 +19,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
-public class NoteDataSource {
+public class NoteDataSource extends AppCompatActivity {
 
     private SQLiteDatabase database;
     private NotesDBHelper dbHelper;
+    private Object TextView = R.id.textPriority;
 
     public NoteDataSource(Context context){
         dbHelper = new NotesDBHelper(context);
@@ -81,10 +89,6 @@ public class NoteDataSource {
 
     public ArrayList<Notes> getMyNotes(String sortItem, String sortOrder) {
         ArrayList<Notes> notes = new ArrayList<>();
-
-
-
-
         try{
             String query = " SELECT * FROM notes ORDER BY " + sortItem + " " + sortOrder;
             Cursor cursor = database.rawQuery(query,null);
@@ -102,7 +106,8 @@ public class NoteDataSource {
                 } else if (cursor.getString(3).equals("B_Medium")) {
                     newNote.setPriority("Medium");
                 } else {
-                    newNote.setPriority("High");
+                    newNote.setPriority("high");
+                    TextView = R.color.system_red;
                 }
                 //newNote.setPriority(cursor.getString(3));
 
