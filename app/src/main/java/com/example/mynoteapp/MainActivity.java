@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         else {
             currentNotes = new Notes();
         }
+
+        TextView dateTextView = findViewById(R.id.dateTextView);
+        dateTextView.setText(DateFormat.format("MM/dd/yyy", currentNotes.getDate().getTimeInMillis()).toString());
+
 
         setForEditing(false);
         initListButton();
@@ -215,10 +221,12 @@ public class MainActivity extends AppCompatActivity {
         }
         EditText editSubject = findViewById(R.id.editSubject);
         EditText editNote = findViewById(R.id.editNotesText);
+        TextView dateTextView = findViewById(R.id.dateTextView);
       //  RadioGroup priorityButtons = findViewById(R.id.radioGroupPriority);
 
         editSubject.setText(currentNotes.getSubject());
         editNote.setText(currentNotes.getNotes());
+        dateTextView.setText(DateFormat.format("MM/dd/yyy", currentNotes.getDate().getTimeInMillis()).toString());
 
 
             RadioButton lowPriority =  findViewById(R.id.radioButtonLow);

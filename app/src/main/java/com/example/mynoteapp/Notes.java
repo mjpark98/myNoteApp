@@ -1,9 +1,5 @@
 package com.example.mynoteapp;
 
-import java.text.DateFormat;
-import java.text.Normalizer;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class Notes {
